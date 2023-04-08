@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+مقایسه
+{% endblock %}
+{% block content %}
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow">صفحه اصلی<i class="fi-rs-home mr-5"></i></a>
+                <span></span> <a href="{% url 'shop:shop_main' %}">فروشگاه</a> <span></span> مقایسه
+            </div>
+        </div>
+    </div>
+    <div class="container mb-80 mt-50">
+        <div class="row">
+            <div class="col-xl-10 col-lg-12 m-auto">
+                <h1 class="heading-2 mb-10">مقایسه محصول</h1>
+                <h6 class="text-body mb-40">در سبد خرید شما <span class="text-brand">{{compare.count}}</span> محصول وجود دارد</h6>
+                <div class="table-responsive">
+                    <table class="table text-center table-compare">
+                        <tbody>
+                            <tr class="pr_image">
+                                <td class="text-muted font-sm fw-600 font-heading mw-200">پیش نمایش</td>
+                                {% for item in compare %}
+                                <td class="row_img"><img src="{{item.products.image.url}}" alt="compare-img"></td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="pr_title">
+                                <td class="text-muted font-sm fw-600 font-heading">نام</td>
+                                {% for item in compare %}
+                                <td class="product_name">
+                                    <h6><a href="shop-product-full.html" class="text-heading"> {{item.products.title}}</a></h6>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="pr_price">
+                                <td class="text-muted font-sm fw-600 font-heading">خرید</td>
+                                {% for item in compare %}
+                                <td class="product_price">
+                                    <h4 class="price text-brand"> {{item.products.price}}</h4>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="pr_rating">
+                                <td class="text-muted font-sm fw-600 font-heading">امتیاز</td>
+                                {% for item in compare %}
+                                <td>
+                                    <div class="rating_wrap">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width: 90%"></div>
+                                        </div>
+                                        <span class="rating_num">(121)</span>
+                                    </div>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="description">
+                                <td class="text-muted font-sm fw-600 font-heading">توضیحات</td>
+                                {% for item in compare %}
+                                <td class="row_text font-xs">
+                                    <p class="font-sm text-muted">{{item.products.short_discription|safe}}</p>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="pr_stock">
+                                <td class="text-muted font-sm fw-600 font-heading">وضعیت</td>
+                                {% for item in compare %}
+                                    {% if item.products.new == True %}
+                                    <td class="row_stock"><span class="stock-status in-stock mb-0">نو</span></td>
+                                    {% else %}
+                                    <td class="row_stock"><span class="stock-status out-stock mb-0">کارکرده</span></td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                            <tr class="pr_weight">
+                                <td class="text-muted font-sm fw-600 font-heading">وزن</td>
+                                {% for item in compare %}
+                                <td class="row_weight"> {{item.products.size.first}}</td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="pr_add_to_cart">
+                                <td class="text-muted font-sm fw-600 font-heading">خرید</td>
+                                {% for item in compare %}
+                                <td class="row_btn">
+                                    <button class="btn btn-sm btn-secondary"><i class="fi-rs-headset mr-5"></i>تماس با ما</button>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            <tr class="pr_remove text-muted">
+                                <td class="text-muted font-md fw-600"></td>
+                                {% for item in compare %}
+                                <td class="row_remove">
+                                    <a href="{% url 'shop:compares_delete' item.products.slug %}" class="text-muted"><i class="fi-rs-trash mr-5"></i><span>حذف</span> </a>
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

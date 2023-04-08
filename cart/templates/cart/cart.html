@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+سبد خرید
+{% endblock %}
+{% block content %}
+<main class="main">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow">صفحه اصلی<i class="fi-rs-home mr-5"></i></a>
+                <span></span> <a href="{% url 'shop:shop_main' %}">فروشگاه</a>
+                <span></span> سبد خرید
+            </div>
+        </div>
+    </div>
+    <div class="container mb-80 mt-50">
+        <div class="row">
+            <div class="col-lg-8 mb-40">
+                <h1 class="heading-2 mb-10">سبد خرید</h1>
+                <div class="d-flex justify-content-between">
+                    <h6 class="text-body">در سبد خرید شما محصول وجود دارد</h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="table-responsive shopping-summery">
+                    <table class="table table-wishlist">
+                        <thead>
+                            <tr class="main-heading">
+                                <th class="custome-checkbox start pl-30">
+                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
+                                    <label class="form-check-label" for="exampleCheckbox11"></label>
+                                </th>
+                                <th scope="col" colspan="2">محصولات</th>
+                                <th scope="col">قیمت</th>
+                                <th scope="col">تعداد</th>
+                                <th scope="col">مجموع</th>
+                                <th scope="col" class="end">حذف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart %}
+                            <tr class="pt-30">
+                                <td class="custome-checkbox pl-30">
+                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+                                    <label class="form-check-label" for="exampleCheckbox1"></label>
+                                </td>
+                                <td class="image product-thumbnail pt-40"><img src="{{item.product.image.url}}" alt="#"></td>
+                                <td class="product-des product-name">
+                                    <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html"> {{item.product.title}}</a></h6>
+                                    <div class="product-rate-cover">
+                                        <div class="product-rate d-inline-block">
+                                            <div class="product-rating" style="width:90%">
+                                            </div>
+                                        </div>
+                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                    </div>
+                                </td>
+                                <td class="price" data-title="Price">
+                                    <h4 class="text-body">{{item.product.price}} </h4>
+                                </td>
+                                <td class="text-center detail-info" data-title="Stock">
+                                    <div class="detail-extralink mr-15">
+                                        <div class="detail-qty border radius">
+                                            <span class="qty-val">{{item.quantity}}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="price" data-title="Price">
+                                    <h4 class="text-brand">{{item.total}} </h4>
+                                </td>
+                                <td class="action text-center" data-title="Remove"><a href="{% url 'cart:cart_delete' item.unique_id %}" class="text-body"><i class="fi-rs-trash"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="divider-2 mb-30"></div>
+                <div class="cart-action d-flex justify-content-between">
+                    <a href="{% url 'cart:order_add' %}" class="btn "><i class="fi-rs-arrow-left mr-10"></i>ادامه خرید</a>
+                    <a href="{% url 'shop:shop_main' %}" class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>بروزرسانی سبد خرید</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

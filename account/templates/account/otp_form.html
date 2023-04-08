@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Otp_Registerations
+{% endblock %}
+{% block content %}
+<main class="main pages">
+    <div class="page-header breadcrumb-wrap">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html" rel="nofollow">صفحه اصلی<i class="fi-rs-home mr-5"></i></a>
+                <span></span> صفحات <span></span> تایید کد 
+            </div>
+        </div>
+    </div>
+    <div class="page-content pt-150 pb-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-8">
+                            <div class="login_wrap widget-taber-content background-white">
+                                <div class="padding_eight_all bg-white">
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        {{form.errors}}
+                                        <div class="form-group">
+                                            <label for=""> کد تایید:</label>
+                                            {{form.code}}
+                                        </div>
+                                        <div class="form-group mb-30">
+                                            <button  onclick="JSalert()" type="submit" class="btn btn-fill-out btn-block hover-up font-weight-bold" name="login">ثبت نام</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    function JSalert(){
+        swal('شما با موفقیت وارد سایت شدید')
+    } 
+</script> 
+{% endblock %}

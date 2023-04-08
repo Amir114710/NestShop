@@ -1,0 +1,63 @@
+{% extends "base.html"%}
+{% load static %}
+{% block title %}
+edit profile
+{% endblock %}
+{% block content %}
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>ادیت پروفایل</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'home:main' %}">خانه</a>
+                        </li>
+                        <li>
+                            <span>ادیت پروفایل</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="title-img">
+        <img src="{% static "images/page-title1.jpg" %}" alt="About" />
+        <img src="{% static "images/shape16.png" %}" alt="Shape" />
+        <img src="{% static "images/shape17.png" %}" alt="Shape" />
+        <img src="{% static "images/shape18.png" %}" alt="Shape" />
+    </div>
+</div>
+
+<div class="user-area ptb-100">
+    <div class="container">
+        <div class="user-item">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h2>فرم ادیت پروفایل</h2>
+                {% for error in form.errors.phone %}
+                    <p class="alert alert-danger">{{error}}</p>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="">نام کاربری:</label>
+                    {{form.username}}                    
+                </div>
+                <div class="form-group">
+                    <label for="">نام و نام خانوادگی:</label>
+                    {{form.Full_name}}                    
+                </div>
+                <div class="form-group">
+                    <label for="">ایمیل:</label>
+                    {{form.email}}                    
+                </div>
+                <button type="submit" class="btn common-btn">
+                    ثبت اطلاعات
+                    <img src="{% static "images/shape1.png" %}" alt="Shape" />
+                    <img src="{% static "images/shape2.png" %}" alt="Shape" />
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

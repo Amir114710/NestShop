@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}
+ثبت آدرس
+{% endblock %}
+{% block content %}
+<div class="checkout-area pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <h2>اطلاعات را وارد کنید:</h2>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="checkout-billing">
+                        <div class="form-group">
+                            {{form.fullname|attr:'class:form-control'|attr:'placeholder:نام کامل:'}}
+                        </div>
+                        <div class="form-group">
+                            {{form.phone|attr:'class:form-control'|attr:'placeholder:تلفن:'}}
+                        </div>
+                        <div class="form-group">
+                            {{form.email|attr:'class:form-control'|attr:'placeholder:ایمیل:'}}
+                        </div>
+                        <div class="form-group">
+                            {{form.postal_code|attr:'class:form-control'|attr:'placeholder:کد پستی:'}}
+                        </div>
+                        <div class="form-group">
+                                {{form.address|attr:'class:form-control'|attr:'placeholder:ادرس:'}}
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn common-btn">
+                                ثبت سفارش
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends "base.html"%}
+{% load static %}
+{% block title %}
+profile
+{% endblock %}
+{% block content %}
+<div class="page-title-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="container">
+                <div class="title-content">
+                    <h2>پروفایل</h2>
+                    <ul>
+                        <li>
+                            <a href="{% url 'home:main' %}">خانه</a>
+                        </li>
+                        <li>
+                            <span>پروفایل</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="title-img">
+        <img src="{% static "images/page-title1.jpg" %}" alt="About" />
+        <img src="{% static "images/shape16.png" %}" alt="Shape" />
+        <img src="{% static "images/shape17.png" %}" alt="Shape" />
+        <img src="{% static "images/shape18.png" %}" alt="Shape" />
+    </div>
+</div>
+<div class="user-area ptb-100">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm" id="favorite-profile">
+            <h3><i class="bx bx-heart" style="color: red;font-size: 50px;"></i></h3>
+            <h4 data-bs-toggle="modal" data-bs-target="#exampleModalWishlist" data-bs-whatever="@mdo">لیست مورد علاقه ها</h4>
+            <p>کالاهایی که در سایت پسندید بصورت یک لیست به شما نمایش داده شده است</p>
+          </div>
+          <div class="col-sm" id="favorite-profile">
+            <i class="bx bxs-cart" style="color: rgb(0, 170, 255);font-size: 50px;"></i>
+            <h4 data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">سبد خرید</h4>
+            <p>کالاهایی که در سایت به سبد خرید اضافه کردید بصورت یک لیست به شما نمایش داده شده است</p>
+          </div>
+          <div class="col-sm" id="favorite-profile">
+            <i class="fa-solid fa-signal" style="font-size: 50px;color: aquamarine;margin-top: 0.1em;margin-bottom: 0.1em;"></i>
+            <h4 data-bs-toggle="modal" data-bs-target="#exampleModalOrder" data-bs-whatever="@mdo"">اطلاعات سفارش های شما</h4>
+            <p>اطلاعات کالاهایی که در سایت سفارش داده اید بصورت یک لیست به شما نمایش داده شده است </p>
+          </div>
+        </div>
+    </div>
+      <br><br>
+    <div class="container">
+        <div class="user-item">
+            <h2>پروفایل</h2>
+            <br><br>
+            <div class="form-group">
+                <label for="">نام کاربری:</label>
+                {% if request.user.username %}
+                <p>{{request.user.username}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="">ایمیل:</label>
+                {% if request.user.email %}
+                <p>{{request.user.email}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="">شماره تلفن:</label>
+                {% if request.user.phone %}
+                <p>{{request.user.phone}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="">نام و نام خانوادگی:</label>
+                {% if request.user.Full_name %}
+                <p>{{request.user.Full_name}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="">ایا کاربر فعال است ؟</label>
+                {% if request.user.is_active %}
+                <p><i class="fa-solid fa-circle-check" style="color:green;"></i></p>
+                {% else %}
+                <i class="fa-solid fa-circle-xmark" style="color:red;"></i>
+                {% endif %}                    
+            </div>
+            <div class="text-center">
+                <a href="{% url 'account:edit_profile' %}?next={% url 'account:profile' %}">
+                    <button type="button" class="btn common-btn">
+                        ادیت پروفایل
+                        <img src="{% static "images/shape1.png" %}" alt="Shape" />
+                        <img src="{% static "images/shape2.png" %}" alt="Shape" />
+                    </button>
+                </a>
+            </div>
+            <br><br>
+            <h2>آدرس های شما</h2>
+            <br><br>
+            {% for address in request.user.addresses.all %}
+            <br><br>
+            <div class="form-group">
+                <label for="">نام کامل:</label>
+                {% if address.fullname %}
+                <p>{{address.fullname}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="">شماره همراه:</label>
+                {% if address.phone %}
+                <p>{{address.phone}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="">ایمیل:</label>
+                {% if address.email %}
+                <p>{{address.email}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="">کد پستی:</label>
+                {% if address.postal_code %}
+                <p>{{address.postal_code}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <br><br>
+            <div class="form-group">
+                <label for="">آدرس:</label>
+                {% if address.address %}
+                <p>{{address.address}}</p>
+                {% else %}
+                ------
+                {% endif %}                    
+            </div>
+            <hr>
+            {% endfor %}
+            <div class="text-center">
+                <a href="{% url 'account:add_address' %}?next={% url 'account:profile'%}">
+                    <button type="button" class="btn common-btn">
+                        ثبت ادرس جدید
+                        <img src="{% static "images/shape1.png" %}" alt="Shape" />
+                        <img src="{% static "images/shape2.png" %}" alt="Shape" />
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
