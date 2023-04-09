@@ -30,7 +30,7 @@
                 <div class="container">
                     <div class="header-wrap">
                         <div class="logo logo-width-1">
-                            <a href="index.html"><img src="{% static "imgs/theme/logo.svg" %}" alt="logo"></a>
+                            <a href="{% url 'home:main' %}"><img src="{% static "imgs/theme/logo.svg" %}" alt="logo"></a>
                         </div>
                         <div class="header-right">
                             <div class="search-style-2">
@@ -91,41 +91,28 @@
                                         <a class="mini-cart-icon" href="shop-cart.html">
                                             <img alt="Nest" src="{% static "imgs/theme/icons/icon-cart.svg" %}">
                                         </a>
-                                        <a href="shop-cart.html"><span class="lable">سبدخرید</span></a>
+                                        <a href="{% url 'cart:cart_main' %}"><span class="lable">سبدخرید</span></a>
                                         <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                             <ul>
+                                                {% for item in cart %}
                                                 <li>
                                                     <div class="shopping-cart-img">
-                                                        <a href="shop-product-right.html"><img alt="Nest" src="{% static "imgs/shop/thumbnail-3.jpg" %}"></a>
+                                                        <a href="shop-product-right.html"><img alt="Nest" src="{{item.product.image.url}}"></a>
                                                     </div>
                                                     <div class="shopping-cart-title">
-                                                        <h4><a href="shop-product-right.html">آب پرتقال</a></h4>
-														<h4><span>1 × </span>80.000 تومان</h4>
-													</div>
-													<div class="shopping-cart-delete">
-														<a href="#"><i class="fi-rs-cross-small"></i></a>
+                                                        <h4><a href="shop-product-right.html">{{item.product.title}} </a></h4>
+														<h4><span>{{item.quantity}} × </span> {{item.product.price}} تومان</h4>
 													</div>
 												</li>
-												<li>
-													<div class="shopping-cart-img">
-														<a href="shop-product-right.html"><img alt="Nest" src="{% static "imgs/shop/thumbnail-2.jpg" %}"></a>
-													</div>
-													<div class="shopping-cart-title">
-														<h4><a href="shop-product-right.html">فلفل دلمه ای</a></h4>
-														<h4><span>1 × </span>32.000 تومان</h4>
-													</div>
-													<div class="shopping-cart-delete">
-														<a href="#"><i class="fi-rs-cross-small"></i></a>
-													</div>
-												</li>
+                                                {% endfor %}
 											</ul>
 											<div class="shopping-cart-footer">
 												<div class="shopping-cart-total">
-													<h4>جمع کل: <span>112.000 تومان</span></h4>
+													<h4>جمع کل: <span>{{cart.total}} تومان</span></h4>
 												</div>
 												<div class="shopping-cart-button">
-													<a href="shop-cart.html" class="outline">مشاهده سبد خرید</a>
-													<a href="shop-checkout.html">بررسی مجدد</a>
+													<a href="{% url 'cart:cart_main' %}" class="outline">مشاهده سبد خرید</a>
+													<a href="{% url 'shop:shop_main' %}">بررسی مجدد</a>
 												</div>
 											</div>
 										</div>
@@ -171,61 +158,13 @@
                                 <div class="categories-dropdown-wrap categories-dropdown-active-large font-heading">
                                     <div class="d-flex categori-dropdown-inner">
                                         <ul>
+                                            {% for item in categories.all %}
                                             <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-1.svg" %}" alt="">شیر و لبنیات</a>
+                                                <a href="{% url 'shop:category_detail' item.id %}"> <img src="{{item.image.url}}" alt=""> {{item.title}}</a>
                                             </li>
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-2.svg" %}" alt="">پوشاک و زیبایی</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-3.svg" %}" alt="">غذا و اسباب بازی حیوانات</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-4.svg" %}" alt="">مواد پخت</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-5.svg" %}" alt="">میوه تازه</a>
-                                            </li>
-                                        </ul>
-                                        <ul class="end">
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-6.svg" %}" alt=""> نوشیدنی‌ها</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-7.svg" %}" alt="">غذاهای دریایی</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-8.svg" %}" alt="">فست فود</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-9.svg" %}" alt="">سبزیجات</a>
-                                            </li>
-                                            <li>
-                                                <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/category-10.svg" %}" alt="">نان و آبمیوه</a> 
-                                            </li>
+                                            {% endfor %}
                                         </ul>
                                     </div>
-                                    <div class="more_slide_open" style="display: none">
-                                        <div class="d-flex categori-dropdown-inner">
-                                            <ul>
-                                                <li>
-                                                    <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/icon-1.svg" %}" alt="">شیر و لبنیات</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/icon-2.svg" %}" alt="">پوشاک و زیبایی</a>
-                                                </li>
-                                            </ul>
-                                            <ul class="end">
-                                                <li>
-                                                    <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/icon-3.svg" %}" alt="">شراب‌ها و نوشیدنی‌ها</a>
-                                                </li>
-                                                <li>
-                                                    <a href="shop-grid-right.html"> <img src="{% static "imgs/theme/icons/icon-4.svg" %}" alt="">غذاهای دریایی تازه</a> 
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="more_categories"><span class="icon"></span> <span class="heading-sm-1">مشاهده بیشتر ...</span></div>
                                 </div>
                             </div>
                             <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block font-heading">
@@ -247,50 +186,7 @@
                                             <a href="page-about.html">درباره ما</a>
                                         </li>
                                         <li>
-                                            <a href="shop-grid-right.html">فروشگاه <i class="fi-rs-angle-down"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="shop-grid-left.html">فروشگاه شبکه - سایدبار چپ</a></li>
-                                                <li><a href="shop-grid-right.html">فروشگاه شبکه - سایدبار راست</a></li>
-                                                <li><a href="shop-list-left.html">فروشگاه لیست - سایدبار چپ</a></li>
-                                                <li><a href="shop-list-right.html">فروشگاه لیست - سایدبار راست</a></li>
-                                                <li><a href="shop-fullwidth.html">فروشگاه - عریض</a></li>
-                                                <li>
-                                                    <a href="#">محصول تکی <i class="fi-rs-angle-right"></i></a>
-                                                    <ul class="level-menu">
-                                                        <li><a href="shop-product-right.html">محصول سایدبار راست</a></li>
-                                                        <li><a href="shop-product-left.html">محصول ساید بار چپ</a></li>
-                                                        <li><a href="shop-product-full.html">محصول بدون سایدبار</a></li>
-                                                        <li><a href="shop-product-vendor.html">محصول - اطلاعات فروشنده</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="shop-filter.html">فروشگاه - فیلتر</a></li>
-                                                <li><a href="shop-wishlist.html">فروشگاه - علاقه مندی</a></li>
-                                                <li><a href="shop-cart.html">فروشگاه - سبد خرید</a></li>
-                                                <li><a href="shop-checkout.html">فروشگاه - بررسی مجدد</a></li>
-                                                <li><a href="shop-compare.html">فروشگاه - مقایسه</a></li>
-                                                <li>
-                                                    <a href="#">فاکتور فروشگاه<i class="fi-rs-angle-right"></i></a>
-                                                    <ul class="level-menu">
-                                                        <li><a href="shop-invoice-1.html">فاکتور فروشگاه 1</a></li>
-                                                        <li><a href="shop-invoice-2.html">فاکتور فروشگاه 2</a></li>
-                                                        <li><a href="shop-invoice-3.html">فاکتور فروشگاه 3</a></li>
-                                                        <li><a href="shop-invoice-4.html">فاکتور فروشگاه 4</a></li>
-                                                        <li><a href="shop-invoice-5.html">فاکتور فروشگاه 5</a></li>
-                                                        <li><a href="shop-invoice-6.html">فاکتور فروشگاه 6</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="#">فروشندگان <i class="fi-rs-angle-down"></i></a>
-                                            <ul class="sub-menu">
-                                                <li><a href="vendors-grid.html">شبکه فروشندگان</a></li>
-                                                <li><a href="vendors-list.html">لیست فروشندگان</a></li>
-                                                <li><a href="vendor-details-1.html">جزئیات فروشندگان 1</a></li>
-                                                <li><a href="vendor-details-2.html">جزئیات فروشندگان 2</a></li>
-                                                <li><a href="vendor-dashboard.html">داشبورد فروشندگان</a></li>
-                                                <li><a href="vendor-guide.html">راهنمای فروشندگان</a></li>
-                                            </ul>
+                                            <a href="{% url 'shop:shop_main' %}">فروشگاه </a>
                                         </li>
                                         <li class="position-static">
                                             <a href="#">مگا منو <i class="fi-rs-angle-down"></i></a>

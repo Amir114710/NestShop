@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import TemplateView , ListView , DetailView , View
 from .models import Category, Like, Product , Comments , Compare
+from mixins import LikeMixins , CompareMixins
 
 class ProductsList(ListView):
     template_name = 'shop/shop.html'
@@ -53,7 +54,7 @@ class CategoryDetails(View):
         category = Category.objects.all()
         return render (request , self.template_name , {'id':pk , 'products':objects , 'categories':category})
 
-class LikeListView(TemplateView):
+class LikeListView(LikeMixins , TemplateView):
     template_name = 'shop/whish_list.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -68,7 +69,7 @@ def like(request , slug , pk):
         Like.objects.create(products_id=pk , users_id = request.user.id)
     return redirect('shop:likes_list')    
 
-class LikeDeleteView(View):
+class LikeDeleteView(LikeMixins , View):
     def get(self , request , slug):
         like = Like.objects.get(products__slug = slug , users_id=request.user.id)
         like.delete()
@@ -83,14 +84,14 @@ class LikeDeleteView(View):
 #     compare = Compare.objects.all()[:3]
 #     return render(request , 'shop/compare.html' , {'compare':compare})
 
-class CompareListView(TemplateView):
+class CompareListView(CompareMixins , TemplateView):
     template_name = 'shop/compare.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['compare'] = self.request.user.compares.all()[:3]
         return context
     
-class Compares(View):
+class Compares(CompareMixins , View):
     template_name = 'shop/compare.html'
     def post(self , request , slug):
         product = get_object_or_404(Product , slug=slug)
@@ -98,7 +99,7 @@ class Compares(View):
         Compare.objects.create(products = product , users = request.user)
         return render(request , self.template_name , {'compare':compare})
 
-class CompareDeleteView(View):
+class CompareDeleteView(CompareMixins , View):
     def get(self , request , slug):
         compare = Compare.objects.get(products__slug = slug , users_id=request.user.id)
         compare.delete()
